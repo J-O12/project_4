@@ -86,7 +86,7 @@ jobs:
 
       - name: Run Build
         working-directory: ./starter/backend
-        run: docker -t backend:${{ github.sha }} .
+        run: docker build -t backend:${{ github.sha }} .
 
       - name: display image
         run: docker images
