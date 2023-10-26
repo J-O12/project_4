@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend
+          image: AWS_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/backend
           ports:
             - containerPort: 5000
