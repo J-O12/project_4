@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend
+          image: 351575047322.dkr.ecr.us-east-1.amazonaws.com/frontend
           ports:
             - containerPort: 3000
