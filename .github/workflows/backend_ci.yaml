@@ -1,5 +1,5 @@
 
-name: My backend CD
+name: My backend CI
 
 on:
   workflow_dispatch:

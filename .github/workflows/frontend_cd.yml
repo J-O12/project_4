@@ -96,7 +96,7 @@ jobs:
           terraform apply -auto-approve
 
       - name: Push to AWS ECR
-        working-directory: ./frontend
+        working-directory: starter/frontend/k8s
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
           docker build -t frontend:${{ github.sha }} .
@@ -109,7 +109,6 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          cd frontend/k8s
-          
+          cd ./starter/frontend/k8s 
           kubectl apply -f deployment.yml
           kubectl apply -f service.yml
