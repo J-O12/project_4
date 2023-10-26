@@ -1,5 +1,5 @@
 
-name: My Workflow
+name: My backend CD
 
 on:
   workflow_dispatch:
