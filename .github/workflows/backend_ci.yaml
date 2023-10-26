@@ -23,10 +23,12 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           pipenv install --dev      
 
       - name: Run Lint
+        working-directory: ./starter/backend
         run: pipenv run lint 
 
       - name: Handle Lint Errors
@@ -34,6 +36,7 @@ jobs:
         run: echo "Lint failed."
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -51,10 +54,12 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           pipenv install --dev
 
       - name: Run Tests
+        working-directory: ./starter/backend
         run: pipenv run test
 
       - name: Handle Test Errors
@@ -62,6 +67,7 @@ jobs:
         run: echo "Tests failed. Please check and fix the issues."
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -76,11 +82,13 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           cd ./
           pipenv install --dev
 
       - name: Run Build
+        working-directory: ./starter/backend
         run: docker build .
 
       - name: Run echo

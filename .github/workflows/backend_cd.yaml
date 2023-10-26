@@ -2,10 +2,10 @@
 name: My Workflow
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Frontend CD"]
+    types:
+      - completed
 
 jobs:
   lint:
@@ -23,10 +23,12 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           pipenv install --dev      
 
       - name: Run Lint
+        working-directory: ./starter/backend
         run: pipenv run lint 
 
       - name: Handle Lint Errors
@@ -51,10 +53,12 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           pipenv install --dev
 
       - name: Run Tests
+        working-directory: ./starter/backend
         run: pipenv run test
 
       - name: Handle Test Errors
@@ -76,11 +80,13 @@ jobs:
         run: pip install pipenv
 
       - name: Install Dependencies
+        working-directory: ./starter/backend
         run: |
           cd ./
           pipenv install --dev
 
       - name: Run Build
+        working-directory: ./starter/backend
         run: docker -t backend:${{ github.sha }} .
 
       - name: display image
@@ -124,7 +130,6 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          cd backend/k8s
-          
+          cd backend/k8s          
           kubectl apply -f deployment.yml
           kubectl apply -f service.yml
